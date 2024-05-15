@@ -50,21 +50,26 @@ pipeline{
                 sh "trivy fs . > trivyfs.txt"
             }
         }
-        stage("Docker Build & Push"){
-            steps{
-                script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
-                       sh "docker build --build-arg TMDB_V3_API_KEY=https://api.themoviedb.org/3 -t netflix ."
-                       sh "docker tag netflix sankar0812/netflix:latest "
-                       sh "docker push sankar0812/netflix:latest "
-                    }
-                }
-            }
-        }
+        // stage("Docker Build & Push"){
+        //     steps{
+        //         script{
+        //            withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+        //                sh "docker build --build-arg TMDB_V3_API_KEY=https://api.themoviedb.org/3 -t netflix ."
+        //                sh "docker tag netflix sankar0812/netflix:latest "
+        //                sh "docker push sankar0812/netflix:latest "
+        //             }
+        //         }
+        //     }
+        // }
         stage("TRIVY"){
             steps{
                 sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
             }
+        }
+        stage('Debug SSH Connection') {
+           steps {
+              sh 'ssh -v ubuntu@43.205.88.132'
+           }
         }
         stage('Deploy with Ansible') {
             steps {
