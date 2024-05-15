@@ -1,9 +1,9 @@
 pipeline{
     agent any
-    // tools{
-    //     jdk 'jdk17'
-    //     nodejs 'node16'
-    // }
+    tools{
+        jdk 'jdk17'
+        nodejs 'node16'
+    }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
     }
@@ -65,11 +65,22 @@ pipeline{
                 sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
             }
         }
-        stage('Deploy to container'){
-            steps{
-                sh 'docker run -d -p 8081:80 sankar0812/netflix:latest'
+        stage('Deploy with Ansible') {
+            steps {
+                script {
+                    ansiblePlaybook(
+                        playbook: '/etc/ansible/deploy.yml',
+                        inventory: '/etc/ansible/hosts',
+                        extras: '-e "app_name=netflix"'
+                    )
+                }
             }
         }
+        // stage('Deploy to container'){
+        //     steps{
+        //         sh 'docker run -d -p 8081:80 sankar0812/netflix:latest'
+        //     }
+        // }
     //     stage('Deploy to kubernets'){
     //         steps{
     //             script{
