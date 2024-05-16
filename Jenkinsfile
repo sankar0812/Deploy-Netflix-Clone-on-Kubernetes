@@ -3,7 +3,7 @@ pipeline{
     tools{
         // jdk 'jdk17'
         nodejs 'node16'
-        // ansible 'Ansible'
+        ansible 'ansible'
     }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
