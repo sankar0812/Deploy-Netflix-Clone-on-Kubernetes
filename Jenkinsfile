@@ -1,7 +1,7 @@
 pipeline{
     agent any
     tools{
-        jdk 'jdk17'
+        // jdk 'jdk17'
         nodejs 'node16'
         // ansible 'Ansible'
     }
@@ -68,20 +68,22 @@ pipeline{
         }
         stage('Debug SSH Connection') {
            steps {
-              sh 'ssh -v ubuntu@43.205.88.132'
+               script {
+                  ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: ''
+               }
            }
         }
-        stage('Deploy with Ansible') {
-            steps {
-                script {
-                    ansiblePlaybook(
-                        playbook: '/etc/ansible/deploy.yml',
-                        inventory: '/etc/ansible/hosts',
-                        extras: '-e "app_name=netflix"'
-                    )
-                }
-            }
-        }
+        // stage('Deploy with Ansible') {
+        //     steps {
+        //         script {
+        //             ansiblePlaybook(
+        //                 playbook: '/etc/ansible/deploy.yml',
+        //                 inventory: '/etc/ansible/hosts',
+        //                 extras: '-e "app_name=netflix"'
+        //             )
+        //         }
+        //     }
+        // }
         // stage('Deploy to container'){
         //     steps{
         //         sh 'docker run -d -p 8081:80 sankar0812/netflix:latest'
