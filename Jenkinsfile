@@ -34,22 +34,22 @@ pipeline{
         //         }
         //     } 
         // }
-        stage('Install Dependencies') {
-            steps {
-                sh "npm install"
-            }
-        }
+        // stage('Install Dependencies') {
+        //     steps {
+        //         sh "npm install"
+        //     }
+        // }
         // stage('OWASP FS SCAN') {
         //     steps {
         //         dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
         //         dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         //     }
         // }
-        stage('TRIVY FS SCAN') {
-            steps {
-                sh "trivy fs . > trivyfs.txt"
-            }
-        }
+        // stage('TRIVY FS SCAN') {
+        //     steps {
+        //         sh "trivy fs . > trivyfs.txt"
+        //     }
+        // }
         // stage("Docker Build & Push"){
         //     steps{
         //         script{
@@ -61,11 +61,11 @@ pipeline{
         //         }
         //     }
         // }
-        stage("TRIVY"){
-            steps{
-                sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
-            }
-        }
+        // stage("TRIVY"){
+        //     steps{
+        //         sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
+        //     }
+        // }
         stage('Debug SSH Connection') {
            steps {
                script {
