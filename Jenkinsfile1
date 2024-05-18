@@ -1,18 +1,18 @@
 pipeline {
     agent { label 'dev'}
 
-    environment {
-        AWS_REGION = 'ap-south-1'
-        EKS_CLUSTER_NAME = 'EKS_CLOUD'
+   // environment {
+//AWS_REGION = 'ap-south-1'
+//EKS_CLUSTER_NAME = 'EKS_CLOUD'
         //KUBECONFIG = "${env.WORKSPACE}/kubeconfig"
-    }
+  //  }
 
     stages {
-        stage('Setup AWS CLI') {
-            steps {
-                sh 'aws --version'
-            }
-        }
+     //   stage('Setup AWS CLI') {
+     //       steps {
+      //          sh 'aws --version'
+          //}
+     //   }
 
        // stage('Setup kubectl') {
          //   steps {
