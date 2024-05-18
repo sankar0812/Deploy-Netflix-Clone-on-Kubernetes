@@ -42,10 +42,12 @@ pipeline {
 
         stage('Deploy to EKS') {
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'EKS_CLOUD', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                    sh 'kubectl apply -f Kubernetes/deployment.yaml'
-                    sh 'kubectl apply -f Kubernetes/service.yaml'
-                }
+               dir('Kubernetes') {
+                  withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                      sh 'kubectl apply -f deployment.yaml'
+                      sh 'kubectl apply -f service.yaml'
+                  }
+               }
             }
         }
     }
