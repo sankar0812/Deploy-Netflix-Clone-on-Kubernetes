@@ -66,13 +66,13 @@ pipeline{
         //         sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
         //     }
         // }
-        stage('Debug SSH Connection') {
-           steps {
-               script {
-                  ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: ''
-               }
-           }
-        }
+        // stage('Debug SSH Connection') {
+        //    steps {
+        //        script {
+        //           ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: ''
+        //        }
+        //    }
+        // }
         // stage('Deploy with Ansible') {
         //     steps {
         //         script {
@@ -89,18 +89,18 @@ pipeline{
         //         sh 'docker run -d -p 8081:80 sankar0812/netflix:latest'
         //     }
         // }
-    //     stage('Deploy to kubernets'){
-    //         steps{
-    //             script{
-    //                 dir('Kubernetes') {
-    //                     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-    //                             sh 'kubectl apply -f deployment.yml'
-    //                             sh 'kubectl apply -f service.yml'
-    //                     }   
-    //                 }
-    //             }
-    //         }
-    //     }
+        stage('Deploy to kubernets'){
+            steps{
+                script{
+                    dir('Kubernetes') {
+                        withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                                sh 'kubectl apply -f deployment.yml'
+                                sh 'kubectl apply -f service.yml'
+                        }   
+                    }
+                }
+            }
+        }
 
      }
 //     post {
