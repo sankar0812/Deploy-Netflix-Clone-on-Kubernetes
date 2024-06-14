@@ -61,29 +61,29 @@ pipeline{
                 }
             }
         }
-        // stage("TRIVY"){
-        //     steps{
-        //         sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
-        //     }
-        // }
-        // stage('Debug SSH Connection') {
-        //    steps {
-        //        script {
-        //           ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: ''
-        //        }
-        //    }
-        // }
-        // stage('Deploy with Ansible') {
-        //     steps {
-        //         script {
-        //             ansiblePlaybook(
-        //                 playbook: '/etc/ansible/deploy.yml',
-        //                 inventory: '/etc/ansible/hosts',
-        //                 extras: '-e "app_name=netflix"'
-        //             )
-        //         }
-        //     }
-        // }
+        stage("TRIVY"){
+            steps{
+                sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
+            }
+        }
+        stage('Debug SSH Connection') {
+           steps {
+               script {
+                  ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: ''
+               }
+           }
+        }
+        stage('Deploy with Ansible') {
+            steps {
+                script {
+                    ansiblePlaybook(
+                        playbook: '/etc/ansible/deploy.yml',
+                        inventory: '/etc/ansible/hosts',
+                        extras: '-e "app_name=netflix"'
+                    )
+                }
+            }
+        }
         // stage('Deploy to container'){
         //     steps{
         //         sh 'docker run -d -p 8081:80 sankar0812/netflix:latest'
