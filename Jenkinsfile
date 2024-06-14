@@ -61,11 +61,11 @@ pipeline{
                 }
             }
         }
-        stage("TRIVY"){
-            steps{
-                sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
-            }
-        }
+        // stage("TRIVY"){
+        //     steps{
+        //         sh "trivy image sankar0812/netflix:latest > trivyimage.txt" 
+        //     }
+        // }
         stage('Debug SSH Connection') {
            steps {
                script {
