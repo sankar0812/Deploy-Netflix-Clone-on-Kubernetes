@@ -69,7 +69,7 @@ pipeline{
         stage('Debug SSH Connection') {
            steps {
                script {
-                  ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: ''
+                  ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: ''
                }
            }
         }
