@@ -72,7 +72,7 @@ pipeline{
                script {
                   ansiblePlaybook credentialsId: 'dev-server', 
                       disableHostKeyChecking: true, installation: 'ansible', 
-                      inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: '',
+                      inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/deploy.yml', vaultTmpPath: ''
                       //extraVars: [ build_number: "${env.BUILD_NUMBER}" ]
                }
            }
